@@ -2,8 +2,8 @@
 It will host llama.cpp binaries suited to users hardware, utilizing the specificatlly relating llama.cpp pre-compiled binaries, utilizing compatibility with the `hello world` curl/json.
 
 - Work..
-1. Assess End of Session 1 scripts, ensure completeness and correctness, of implementation, fix any issues and add required code, producing research as required.
-2. ensure that cpp menu is correctly implemented, this...
+- Assess End of Session 1 scripts, ensure completeness and correctness, of implementation, fix any issues and add required code, producing research as required.
+- ensure that cpp menu is correctly implemented, this...
 ```
 cudart-llama-bin-win-cu11.7.1-x64.zip - 293MB
 cudart-llama-bin-win-cu12.2.0-x64.zip - 413MB
@@ -24,5 +24,5 @@ llama-b3672-bin-win-sycl-x64.zip - 69.3MB
 llama-b3672-bin-win-vulkan-x64.zip - 8.37MB
 ```
 ...is supposed to be a list in the code, that is selected dynamically based on the relating hardware present, obviously this batch will be intended for windows only, so things for mac and linux should be removed to streamline. With a relating global variable relating to `%LLAMA_BINARIES_ACTIVE%`, which would be a shortlist from the files listed based on users hardware, which whatever could be detected would be displayed beforehand, so as to know what relating binaries to ues. 
-3. Need to find last version that supported OpenCL, to add options for low end AMD users.
-4. Setup-Install Needs to Detect the amount of ram from both graphics cards using directx diagnostics, and also, `display ram capacity in menu` and `pass on in `.\data\persistance.txt` to the main script, that will be relevantly, calculating and distributing, the layers automatically on the cards, falling back to cpu when safe memory/threads usage on each of the cards exceeds user specified percent, by default 65% spread equally between all resources, so the number of layers relevant to the model will be spread among the llama cpp resources available, that have been detected. We need to find python v12 libraries for cpu/gpu identification and statistics. otherwise it would involve filtering directx output, which will require more fixing.
+- Need to find last version that supported OpenCL, to add options for low end AMD users.
+- Setup-Install Needs to Detect the amount of ram from both graphics cards using directx diagnostics, and also, `display ram capacity in menu` and `pass on in `.\data\persistance.txt` to the main script, that will be relevantly, calculating and distributing, the layers automatically on the cards, falling back to cpu when safe memory/threads usage on each of the cards exceeds user specified percent, by default 65% spread equally between all resources, so the number of layers relevant to the model will be spread among the llama cpp resources available, that have been detected. We need to find python v12 libraries for cpu/gpu identification and statistics. otherwise it would involve filtering directx output, which will require more fixing.
