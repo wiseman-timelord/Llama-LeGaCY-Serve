@@ -44,4 +44,4 @@ llama-b3672-bin-win-openblas-x64.zip - 18.8MB
 llama-b3672-bin-win-sycl-x64.zip - 69.3MB
 llama-b3672-bin-win-vulkan-x64.zip - 8.37MB
 ```
-...is supposed to be a list in the code, that is selected dynamically based on the relating hardware present, obviously this batch will be intended for windows only, so things for mac and linux should be removed to streamline.
+...is supposed to be a list in the code, that is selected dynamically based on the relating hardware present, obviously this batch will be intended for windows only, so things for mac and linux should be removed to streamline. With a relating global variable relating to `%LLAMA_BINARIES_ACTIVE%%, which would be a shortlist from the files listed based on users hardware, which whatever could be detected would be displayed beforehand, so as to know what relating binaries to ues. 
