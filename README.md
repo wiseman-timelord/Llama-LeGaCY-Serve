@@ -2,7 +2,22 @@
 It will host llama.cpp binaries suited to users hardware, utilizing the specificatlly relating llama.cpp pre-compiled binaries, utilizing compatibility with the `hello world` curl/json.
 
 - Work..
-- Assess End of Session 1 scripts, ensure completeness and correctness, of implementation, fix any issues and add required code, producing research as required.
+1. Assess End of Session 1 scripts, ensure completeness and correctness, of implementation, fix any issues and add required code, producing research as required.
+2. Assess code relating to the `hello world` curl...
+```
+curl http://localhost:1234/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{ 
+    "model": "model-identifier",
+    "messages": [ 
+      { "role": "system", "content": "Always answer in rhymes." },
+      { "role": "user", "content": "Introduce yourself." }
+    ], 
+    "temperature": 0.7, 
+    "max_tokens": -1,
+    "stream": true
+}'
+``` 
 - ensure that cpp menu is correctly implemented, this...
 ```
 cudart-llama-bin-win-cu11.7.1-x64.zip - 293MB
