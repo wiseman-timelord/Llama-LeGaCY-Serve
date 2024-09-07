@@ -1,14 +1,38 @@
 # Script: .\scripts\display_interface.py
 
+# Imports
 import os
 import json
 from scripts.hardware_binaries import (
     list_available_binaries, install_binary, remove_binary, update_binaries
 )
 
+# Functions
+def print_script_header(header_type="main"):
+    """Prints the header based on the menu type."""
+    clear_screen()
+    print("=" * 120)
+    
+    if header_type == "main":
+        print("    Llama-Legacy-Serve - Main Menu")
+    elif header_type == "model_selection":
+        print("    Llama-Legacy-Serve - Model Selection")
+    elif header_type == "hardware":
+        print("    Llama-Legacy-Serve - Hardware Configuration")
+    elif header_type == "binary_management":
+        print("    Llama-Legacy-Serve - Binary Management")
+    elif header_type == "server_start":
+        print("    Llama-Legacy-Serve - Start Server")
+    elif header_type == "current_config":
+        print("    Llama-Legacy-Serve - Current Configuration")
+    
+    print("=" * 120)
+    print("\n")
+
+
 # Main menu with its own handling logic
 def display_main_menu(config, app):
-    print("\n===== LMS-Local Menu =====")
+    print_script_header("main")
     print("1. Select Model")
     print("2. Configure Hardware")
     print("3. Manage Binaries")
@@ -44,13 +68,12 @@ def display_main_menu(config, app):
 
 # Model selection menu and handling
 def display_model_selection_menu(config):
-    print("\n===== Model Selection =====")
+    print_script_header("model_selection")
     model_dir = config.get("MODEL_DIR", "./models")
     models = list_models(model_dir)
 
     for idx, model in enumerate(models, start=1):
         print(f"{idx}. {model}")
-    print("b. Back")
     
     model_choice = input("Selection; Menu Options = 1-#, Back to Main = B: ")
 
@@ -67,11 +90,10 @@ def display_model_selection_menu(config):
 # Hardware configuration menu and handling
 def display_hardware_menu():
     while True:
-        print("\n===== Hardware Configuration =====")
+        print_script_header("hardware")
         print("1. GPU Settings")
         print("2. CPU Settings")
         print("3. Auto-Detect Hardware")
-        print("b. Back")
 
         hw_choice = input("Selection; Menu Options = 1-3, Back to Main = B: ")
 
@@ -87,11 +109,10 @@ def display_hardware_menu():
 # Binary management menu and handling
 def display_binary_management_menu():
     while True:
-        print("\n===== Binary Management =====")
+        print_script_header("binary_management")
         print("1. Install Binary")
         print("2. Remove Binary")
         print("3. Update Binaries")
-        print("b. Back")
         
         bin_choice = input("Selection; Menu Options = 1-3, Back to Main = B: ")
 
@@ -108,7 +129,7 @@ def display_binary_management_menu():
 
 # Server start menu and handling
 def display_server_start_menu(config, app):
-    print("\n===== Start Server =====")
+    print_script_header("server_start")
     print(f"Selected model: {config.get('model', 'None')}")
     print("Press any key to start the server, or 'b' to go back.")
 
@@ -120,7 +141,7 @@ def display_server_start_menu(config, app):
 
 # Current configuration display
 def display_current_config(config):
-    print("\n===== Current Configuration =====")
+    print_script_header("current_config")
     print(json.dumps(config, indent=4))
 
 # Confirmation prompt
@@ -135,3 +156,7 @@ def list_models(model_dir):
             if file.lower().endswith((".ggml", ".bin", ".gguf")):
                 models.append(os.path.join(root, file))
     return models
+
+# Helper to clear the screen
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')

@@ -14,7 +14,7 @@ def clear_screen():
 def print_script_header():
     """Prints the main header for the script."""
     clear_screen()
-    print("\n" + "=" * 120)
+    print("=" * 120)
     print("    Install-Setup")
     print("=" * 120)
     print("\n")
@@ -57,8 +57,9 @@ def main_menu():
     while True:
         print_script_header()
         print("    1. Install Python Libraries")
-        print("    (.\data\requirements_main.txt)\n")
-        print("    2. Detect and Install, CPU and GPU, Binaries\n")
+        print("    ./data/requirements_main.txt\n")
+        print("    2. Detect and Install, Binaries\n\n")
+        print("")
         print("=" * 120)
         choice = input("Selection; Menu Options = 1-2, Exit Setup-Install = X: ").strip().lower()
 
