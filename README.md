@@ -1,5 +1,5 @@
 # Llama-Legacy-Serve
-Status: Alpha. Very Early Stage, internet may cut out at some point, please support my work.
+Status: Alpha. End of Claude Session #2 - a Very Early Stage, and internet may cut out at some point, please support my work.
 
 ### Description:
 It will host llama.cpp binaries suited to users hardware, utilizing the specificatlly relating llama.cpp pre-compiled binaries, utilizing compatibility with any cpp binary including non-continued ones, through only the `hello world` curl/json. Main thing, LM Studio is bloat compared to ollama, but ollama doesnt support non-Rocm amd gpu on windows. since dropping opencl, I have tried vulkan on lm studio, but it doesnt allow for more shaders than the cpu has threads, there is no thread slider or input value, they didnt listen to me at least in the current release, albeit when it did support opencl, it was as if it all the threads, which was no good either on gpu as shared resource. I intend to serve models simpler and better for my use case, albeit support all hardware there are binaries currently for, and a few more. The issue for some people will be its `lm studio` compatible, and possibly `ollama` compatible too later, as I would like to also use it with apps that require ollama).
