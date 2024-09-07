@@ -37,9 +37,10 @@ All Processes Finished
 
 
     1. Install Python Libraries
-    ./data/requirements_main.txt
+    (./data/requirements_main.txt)
 
-    2. Detect and Install Binaries
+    2. Detect Hardware and Install Binaries
+
 
 
 ========================================================================================================================
