@@ -1,3 +1,4 @@
+:: Script: .\Install-Setup.Bat
 @echo off
 setlocal EnableDelayedExpansion
 

@@ -25,5 +25,5 @@ echo              LLaMa-LeGaCY-SerVer
 echo ================================================
 
 echo Starting LMS-Local...
-%PYTHON_EXE_TO_USE% lms_local.py
+%PYTHON_EXE_TO_USE% llama_legacy_serve.py
 pause

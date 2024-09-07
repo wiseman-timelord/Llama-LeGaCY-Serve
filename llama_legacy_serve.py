@@ -1,4 +1,4 @@
-# SCRIPT: .\llama_legacy_serve.py
+# Script: .\llama_legacy_serve.py
 import os
 import subprocess
 import json
@@ -80,6 +80,7 @@ def format_sse(data: str) -> str:
 
 # API endpoint
 @app.route('/v1/chat/completions', methods=['POST'])
+@app.route('/v1/chat/completions', methods=['POST'])
 def chat_completions():
     data = request.json
     config = load_yaml_config()
@@ -92,9 +93,12 @@ def chat_completions():
     max_tokens = data.get('max_tokens', -1)
     stream = data.get('stream', False)
 
+    # Determine the best binary to use
+    binary = determine_best_binary(config)
+
     # Construct llama-cli command
     command = [
-        './llama-cli',
+        binary,
         '-m', model_path,
         '--prompt', prompt,
         '--temp', str(temperature),
@@ -103,39 +107,59 @@ def chat_completions():
     ]
 
     def generate():
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
-        
-        for line in process.stdout:
-            chunk = {
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+            
+            for line in process.stdout:
+                chunk = {
+                    "id": f"chatcmpl-{int(time.time())}",
+                    "object": "chat.completion.chunk",
+                    "created": int(time.time()),
+                    "model": model_path,
+                    "choices": [
+                        {
+                            "delta": {"content": line.strip()},
+                            "index": 0,
+                            "finish_reason": None
+                        }
+                    ]
+                }
+                yield format_sse(chunk)
+            
+            # Send the final chunk
+            final_chunk = {
                 "id": f"chatcmpl-{int(time.time())}",
                 "object": "chat.completion.chunk",
                 "created": int(time.time()),
                 "model": model_path,
                 "choices": [
                     {
-                        "delta": {"content": line.strip()},
+                        "delta": {},
                         "index": 0,
-                        "finish_reason": None
+                        "finish_reason": "stop"
                     }
                 ]
             }
-            yield format_sse(chunk)
-        
-        # Send the final chunk
-        final_chunk = {
-            "id": f"chatcmpl-{int(time.time())}",
-            "object": "chat.completion.chunk",
-            "created": int(time.time()),
-            "model": model_path,
-            "choices": [
-                {
-                    "delta": {},
-                    "index": 0,
-                    "finish_reason": "stop"
-                }
-            ]
-        }
-        yield format_sse(final_chunk)
+            yield format_sse(final_chunk)
+
+        if stream:
+            return Response(stream_with_context(generate()), content_type='text/event-stream')
+        else:
+            # For non-streaming, collect all output and send as a single response
+            process = subprocess.run(command, capture_output=True, text=True)
+            response = {
+                "id": f"chatcmpl-{int(time.time())}",
+                "object": "chat.completion",
+                "created": int(time.time()),
+                "model": model_path,
+                "choices": [
+                    {
+                        "message": {"role": "assistant", "content": process.stdout.strip()},
+                        "finish_reason": "stop",
+                        "index": 0
+                    }
+                ]
+            }
+            return jsonify(response)
 
     if stream:
         return Response(stream_with_context(generate()), content_type='text/event-stream')
@@ -165,20 +189,20 @@ def main():
         choice, models = display_menu(config)
 
         if choice == "1":
-            new_gpu = input("Enter new GPU/CPU option (NVIDIA/AMD/CPU): ")
-            update_persistence("GPU_TYPE", new_gpu)
+            print("Current GPU/CPU configuration:", ", ".join(config.get("GPU_TYPE", ["CPU"])))
+            print("Available VRAM:")
+            for gpu, vram in config.get("VRAM_CAPACITY", {}).items():
+                print(f"  {gpu}: {vram:.2f} MB")
+            # You might want to add options to modify GPU usage or priorities here
         elif choice == "2":
             new_threads = input("Enter number of threads: ")
             update_persistence("THREADS", new_threads)
         elif choice == "3":
-            new_layers = input("Enter number of layers to use on GPU: ")
-            update_persistence("LAYERS", new_layers)
-        elif choice == "4":
             new_model_dir = input("Enter new model library path: ")
             update_persistence("MODEL_DIR", new_model_dir)
-        elif choice == "5":
+        elif choice == "4":
             start_server(config, models)
-        elif choice == "6":
+        elif choice == "5":
             print("Exiting...")
             break
 
