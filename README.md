@@ -4,6 +4,35 @@ Status: Alpha. Very Early Stage, internet may cut out at some point, please supp
 ### Description:
 It will host llama.cpp binaries suited to users hardware, utilizing the specificatlly relating llama.cpp pre-compiled binaries, utilizing compatibility with any cpp binary including non-continued ones, through only the `hello world` curl/json (lm studio compatible, possibly ollama too later).
 
+### Preview:
+- Alpha `Llama-LeGaCY-Serve`
+```
+Status: Administrator
+Path Dp0'd To Script.
+File Missing: .\data\persistence.txt
+Run Install-Setup.Bat First.
+All Processes Finished
+
+```
+- Alpha `Install-Setup`...
+```
+================================================
+                 Install-Setup
+================================================
+
+Starting Setup-Install...
+Admin Mode: Administrator
+Script Location: D:\ProgsCreations\Llama-Legacy-Server\A001
+Python Used: C:\Users\Mastar\AppData\Local\Programs\Python\Python312\python.exe
+Running `install_setup.py.py`...
+An error occurred. Please check the setup.log file for details.
+...`install_setup.py` Exited.
+All Processes Finished
+
+```
+
+
+
 ## Development:
 1. Assess End of Session 2 scripts, ensure completeness and correctness, of implementation, fix any issues and add required code, producing research as required.
 2. Setup-Install Needs to Detect the amount of ram from both graphics cards using directx diagnostics, and also, `display ram capacity in menu` and `pass on in `.\data\persistance.json , that is read by main script when its run, that will be relevantly, calculating and distributing, the layers automatically on the cards, falling back to cpu when safe memory/threads usage on each of the cards exceeds user specified percent, ie the user is specifying, which cpus to use and which gpus, to use, so as for when the user then selects for example 65% then it will, 1) determine the number of layers on the model, 2) read the size of the model, and do the calculation`(model size + 10%) / number layers = MB per layer`, 3) read the memory size for the selected GPU from the json `(65% of memory size / MB per layer = number of layers to offload to GPU`, the remainder of the layers would be done on the CPU. We need to find the best/latest python v12 libraries for cpu/gpu identification and statistics. otherwise it would involve filtering directx output, which will require more work/fixing.
