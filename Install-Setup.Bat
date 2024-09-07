@@ -1,23 +1,25 @@
 :: Script: .\Install-Setup.Bat
+
+:: Initialization
 @echo off
 setlocal EnableDelayedExpansion
+
+:: Globals
+set "PYTHON_EXE_TO_USE="
+set "SCRIPT_DIRECTORY_PATH="
 
 :: ADMIN AND DP0, BLOCK, DO NOT MODIFY: START
 net session >nul 2>&1 || (
     echo Error: Admin privileges required. Right-click and select "Run as administrator".
     timeout /t 3 >nul
-    exit /b 1
+    goto :end_of_script
 )
-echo Status: Administrator
-timeout /t 1 >nul
 set "SCRIPT_DIRECTORY_PATH=%~dp0"
 set "SCRIPT_DIRECTORY_PATH=%SCRIPT_DIRECTORY_PATH:~0,-1%"
 pushd "%SCRIPT_DIRECTORY_PATH%"
-echo Path Dp0'd To Script.
-timeout /t 1 >nul
 :: ...ADMIN AND DP0, BLOCK, DO NOT MODIFY: END
 
-:: Find Python 3.12
+:: PYTHON FIND BLOCK, DO NOT MODIFY: START
 for %%I in (
     "C:\Program Files\Python312\python.exe"
     "C:\Users\%USERNAME%\AppData\Local\Programs\Python\Python312\python.exe"
@@ -31,14 +33,33 @@ for %%I in (
 if not defined PYTHON_EXE_TO_USE (
     echo Error: Python 3.12 not found. Please install it before running this script.
     timeout /t 3 >nul
-    exit /b 1
+    goto :end_of_script
 )
-echo Python Found: %PYTHON_EXE_TO_USE%
+:: PYTHON FIND BLOCK, DO NOT MODIFY: END
+
+:: Start Display
+cls
+echo ================================================
+echo                  Install-Setup
+echo ================================================
+echo.
+echo Starting Setup-Install...
+timeout /t 1 >nul
+echo Admin Status: Administrator
+timeout /t 1 >nul
+echo Script Path: %SCRIPT_DIRECTORY_PATH%
+timeout /t 1 >nul
+echo Python Path: %PYTHON_EXE_TO_USE%
 timeout /t 1 >nul
 
 :: Run the Python setup script
+echo Running `install_setup.py.py`...
 %PYTHON_EXE_TO_USE% install_setup.py
+echo ...`install_setup.py` Exited.
+goto :end_of_script
 
-echo Setup complete. Press any key to exit...
+:end_of_script
+echo All Processes Finished
 pause >nul
+endlocal
 exit /b 0

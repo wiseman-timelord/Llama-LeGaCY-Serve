@@ -1,7 +1,7 @@
 # Script: .\install_setup.py
 
 # Imports
-import os, sys, subprocess, requests, 
+import os, sys, subprocess, requests
 import yaml, json, logging, zipfile
 from typing import List, Dict, Union
 
