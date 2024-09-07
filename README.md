@@ -1,4 +1,4 @@
-# Llama-Legacy-Server
+# Llama-Legacy-Serve
 Status: Alpha. Very Early Stage, internet may cut out at some point, please support my work.
 
 ### Description:
