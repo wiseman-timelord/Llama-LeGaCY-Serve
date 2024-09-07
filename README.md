@@ -7,27 +7,44 @@ It will host llama.cpp binaries suited to users hardware, utilizing the specific
 ### Preview:
 - Alpha `Llama-LeGaCY-Serve`
 ```
-Status: Administrator
-Path Dp0'd To Script.
-File Missing: .\data\persistence.txt
-Run Install-Setup.Bat First.
+================================================
+             Llama-LeGaCY-Server
+================================================
+
+Starting Llama-LeGaCY-Server...
+Admin Status: Administrator
+Script Path: D:\ProgsCreations\Llama-Legacy-Server\A001\
+Python Path: C:\Users\Mastar\AppData\Local\Programs\Python\Python312\python.exe
+Running `llama_legacy_serve.py`...
+Traceback (most recent call last):
+  File "D:\ProgsCreations\Llama-Legacy-Server\A001\llama_legacy_serve.py", line 6, in <module>
+    from flask import Flask
+ModuleNotFoundError: No module named 'flask'
+Error: Failed to start LLaMa-LeGaCY-SerVer.
+...`llama_legacy_serve.py` Exited.
 All Processes Finished
+
+
+
+
 
 ```
 - Alpha `Install-Setup`...
 ```
-================================================
-                 Install-Setup
-================================================
+========================================================================================================================
+    Install-Setup
+========================================================================================================================
 
-Starting Setup-Install...
-Admin Mode: Administrator
-Script Location: D:\ProgsCreations\Llama-Legacy-Server\A001
-Python Used: C:\Users\Mastar\AppData\Local\Programs\Python\Python312\python.exe
-Running `install_setup.py.py`...
-An error occurred. Please check the setup.log file for details.
-...`install_setup.py` Exited.
-All Processes Finished
+
+    1. Install Python Libraries
+    ./data/requirements_main.txt
+
+    2. Detect and Install Binaries
+
+
+========================================================================================================================
+Selection; Menu Options = 1-2, Exit Setup-Install = X:
+
 
 ```
 
