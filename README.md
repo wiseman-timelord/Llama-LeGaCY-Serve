@@ -1,5 +1,5 @@
 # Llama-Legacy-Server
-It will host llama.cpp binaries suited to users hardware, utilizing the specificatlly relating llama.cpp pre-compiled binaries, utilizing compatibility with the `hello world` curl/json.
+It will host llama.cpp binaries suited to users hardware, utilizing the specificatlly relating llama.cpp pre-compiled binaries, utilizing compatibility with any cpp binary including non-continued ones, through only the `hello world` curl/json (lm studio compatible, possibly ollama too later).
 
 - Work..
 1. Assess End of Session 1 scripts, ensure completeness and correctness, of implementation, fix any issues and add required code, producing research as required.
