@@ -1,4 +1,4 @@
-# Llama-Legacy-Serve
+# Llama-LeGaCY-Serve
 Status: Alpha. End of Claude Session #2 - a Very Early Stage, and internet may cut out at some point, please support my work.
 
 ### Description:
