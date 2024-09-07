@@ -1,0 +1,5 @@
+flask
+pyyaml
+colorama
+py-cpuinfo
+requests

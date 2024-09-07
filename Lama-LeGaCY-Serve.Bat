@@ -1,4 +1,4 @@
-:: SCRIPT: Llama-LeGaCY-Server.Bat
+:: Script: .\Llama-LeGaCY-Server.Bat
 
 :: Initialization
 @echo off
@@ -6,36 +6,36 @@ setlocal EnableDelayedExpansion
 
 :: Globals
 set "PYTHON_EXE_TO_USE="
-set "SCRIPT_DIRECTORY_PATH="
+set "SCRIPT_DIRECTORY_PATH=%~dp0"
+set "PERSISTENCE_FILE=.\data\persistence.txt"
 
 :: ADMIN AND DP0, BLOCK, DO NOT MODIFY: START
 net session >nul 2>&1 || (
-    echo Error: Admin privileges required. Right-click and select "Run as administrator".
-    timeout /t 3 >nul
+    echo Error: Admin privileges required.
+    echo Right-click and select "Run as administrator".
     goto :end_of_script
 )
-set "SCRIPT_DIRECTORY_PATH=%~dp0"
-set "SCRIPT_DIRECTORY_PATH=%SCRIPT_DIRECTORY_PATH:~0,-1%"
 pushd "%SCRIPT_DIRECTORY_PATH%"
-:: ...ADMIN AND DP0, BLOCK, DO NOT MODIFY: END
+:: ADMIN AND DP0, BLOCK, DO NOT MODIFY: END
 
 :: PYTHON READ BLOCK, DO NOT MODIFY: START:
-if exist ".\data\persistence.txt" (
-    set /p PYTHON_EXE_TO_USE=<.\data\persistence.txt
+if exist "%PERSISTENCE_FILE%" (
+    echo Reading Python path from %PERSISTENCE_FILE%...
+    set /p PYTHON_EXE_TO_USE=<%PERSISTENCE_FILE%
     if not exist "!PYTHON_EXE_TO_USE!" (
-        echo Critical Error: `persistence.txt` corrupt.
-        imeout /t 3 >nul
-		goto :end_of_script
+        echo Critical Error: `persistence.txt`.
+        echo Run Setup-Install.Bat to Re-Configure.
+        goto :end_of_script
     )
 ) else (
-    echo File Missing: .\data\persistence.txt!
+    echo File Missing: %PERSISTENCE_FILE%!
     echo Run Install-Setup.Bat First.
-	timeout /t 3 >nul
-	goto :end_of_script
+    goto :end_of_script
 )
-:: PYTHON READ BLOCK, DO NOT MODIFY: START:
+goto :start_display
+:: PYTHON READ BLOCK, DO NOT MODIFY: END
 
-:: Start Display
+:start_display
 echo ================================================
 echo              Llama-LeGaCY-Server
 echo ================================================
@@ -56,8 +56,6 @@ if errorlevel 1 (
     echo Error: Failed to start LLaMa-LeGaCY-SerVer.
 )
 echo ...`llama_legacy_serve.py` Exited.
-timeout /t 2 >nul
-goto :end_of_script
 
 :end_of_script
 echo All Processes Finished
