@@ -1,7 +1,0 @@
-flask
-pyyaml
-colorama
-wmi
-py-cpuinfo
-psutil
-requests
