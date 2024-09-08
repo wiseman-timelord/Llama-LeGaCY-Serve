@@ -87,10 +87,11 @@ if exist "%MISSING_REQUIREMENTS_FILE%" (
         goto :end_of_script
     )
     echo Missing Libraries installed.
+	del /f /q "%MISSING_REQUIREMENTS_FILE%"
 ) else (
     echo Libraries Already Present.
 )
-del /f /q "%MISSING_REQUIREMENTS_FILE%"
+
 timeout /t 2 >nul
 
 :: Run the Python setup script
