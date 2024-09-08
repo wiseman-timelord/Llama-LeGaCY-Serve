@@ -6,64 +6,53 @@ import json
 from scripts.hardware_binaries import (
     list_available_binaries, install_binary, remove_binary, update_binaries
 )
+from scripts.config_manager import save_json_config
 
-# Functions
 def print_script_header(header_type="main"):
-    """Prints the header based on the menu type."""
     clear_screen()
     print("=" * 120)
-    
-    if header_type == "main":
-        print("    Llama-Legacy-Serve - Main Menu")
-    elif header_type == "model_selection":
-        print("    Llama-Legacy-Serve - Model Selection")
-    elif header_type == "hardware":
-        print("    Llama-Legacy-Serve - Hardware Configuration")
-    elif header_type == "binary_management":
-        print("    Llama-Legacy-Serve - Binary Management")
-    elif header_type == "server_start":
-        print("    Llama-Legacy-Serve - Start Server")
-    elif header_type == "current_config":
-        print("    Llama-Legacy-Serve - Current Configuration")
-    
+    headers = {
+        "main": "Llama-Legacy-Serve - Main Menu",
+        "model_selection": "Llama-Legacy-Serve - Model Selection",
+        "hardware": "Llama-Legacy-Serve - Hardware Configuration",
+        "binary_management": "Llama-Legacy-Serve - Binary Management",
+        "server_start": "Llama-Legacy-Serve - Start Server",
+        "current_config": "Llama-Legacy-Serve - Current Configuration"
+    }
+    print(f"    {headers.get(header_type, 'Llama-Legacy-Serve')}")
     print("=" * 120)
     print("\n")
 
-
-# Main menu with its own handling logic
 def display_main_menu(config, app):
-    print_script_header("main")
-    print("1. Select Model")
-    print("2. Configure Hardware")
-    print("3. Manage Binaries")
-    print("4. Start Server")
-    print("5. View Current Configuration")
-    print("x. Exit")
-    
-    choice = input("Selection; Menu Options = 1-5, Exit and Save = X: ")
+    while True:
+        print_script_header("main")
+        print("1. Select Model")
+        print("2. Configure Hardware")
+        print("3. Manage Binaries")
+        print("4. Start Server")
+        print("5. View Current Configuration")
+        print("x. Exit")
+        
+        choice = input("Selection; Menu Options = 1-5, Exit and Save = X: ").lower()
 
-    if choice == '1':  # Model selection
-        display_model_selection_menu(config)
-    
-    elif choice == '2':  # Hardware configuration
-        display_hardware_menu()
-    
-    elif choice == '3':  # Binary management
-        display_binary_management_menu()
-    
-    elif choice == '4':  # Start server
-        display_server_start_menu(config, app)
-    
-    elif choice == '5':  # Display current configuration
-        display_current_config(config)
-    
-    elif choice.lower() == 'x':  # Exit and Save
-        if confirm_action("exit the program"):
-            from llama_legacy_serve import save_json_config  # Import the save function
-            save_json_config(config)  # Save config before exit
-            return False  # Returning False breaks the main loop
+        if choice == '1':
+            display_model_selection_menu(config)
+        elif choice == '2':
+            display_hardware_menu(config)
+        elif choice == '3':
+            display_binary_management_menu()
+        elif choice == '4':
+            display_server_start_menu(config, app)
+        elif choice == '5':
+            display_current_config(config)
+        elif choice == 'x':
+            if confirm_action("exit the program"):
+                save_json_config("./data/persistence.json", config)
+                return False
+        else:
+            print("Invalid choice. Please try again.")
 
-    return True  # Continue the loop
+    return True
 
 
 # Model selection menu and handling
@@ -148,15 +137,13 @@ def display_current_config(config):
 def confirm_action(action):
     return input(f"Are you sure you want to {action}? (y/n): ").lower() == 'y'
 
-# Helper to list models
 def list_models(model_dir):
     models = []
-    for root, dirs, files in os.walk(model_dir):
+    for root, _, files in os.walk(model_dir):
         for file in files:
             if file.lower().endswith((".ggml", ".bin", ".gguf")):
                 models.append(os.path.join(root, file))
     return models
 
-# Helper to clear the screen
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
