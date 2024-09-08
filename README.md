@@ -42,9 +42,14 @@ All Processes Finished
     2. Detect Hardware and Install Binaries
 
 
+------------------------------------------------------------------------------------------------------------------------
+
+Python Path:
+C:\Users\Mastar\AppData\Local\Programs\Python\Python312\python.exe
 
 ========================================================================================================================
 Selection; Menu Options = 1-2, Exit Setup-Install = X:
+
 
 
 ```
