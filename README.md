@@ -7,9 +7,9 @@ It will host llama.cpp binaries suited to users hardware, utilizing the specific
 ### Preview:
 - Alpha `Llama-LeGaCY-Serve`
 ```
-================================================
-             Llama-LeGaCY-Server
-================================================
+========================================================================================================================
+    Llama-LeGaCY-Serve
+========================================================================================================================
 
 Starting Llama-LeGaCY-Server...
 Admin Status: Administrator
