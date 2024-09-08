@@ -55,7 +55,8 @@ Selection; Menu Options = 1-2, Exit Setup-Install = X:
 ```
 
 ## Development:
-1. Assess End of Session 2 scripts, ensure completeness and correctness, of implementation, fix any issues and add required code, producing research as required.
+1. Assess End of Session 3 scripts, ensure completeness and correctness, of implementation, fix any issues and add required code, producing research as required.
+2. Priority is the batches, then setup_install, then other scripts.
 2. Setup-Install Needs to Detect the amount of ram from both graphics cards using directx diagnostics, and also, `display ram capacity in menu` and `pass on in `.\data\persistance.json , that is read by main script when its run, that will be relevantly, calculating and distributing, the layers automatically on the cards, falling back to cpu when safe memory/threads usage on each of the cards exceeds user specified percent, ie the user is specifying, which cpus to use and which gpus, to use, so as for when the user then selects for example 65% then it will, 1) determine the number of layers on the model, 2) read the size of the model, and do the calculation`(model size + 10%) / number layers = MB per layer`, 3) read the memory size for the selected GPU from the json `(65% of memory size / MB per layer = number of layers to offload to GPU`, the remainder of the layers would be done on the CPU. We need to find the best/latest python v12 libraries for cpu/gpu identification and statistics. Some of these things are impossible to obtain without filtering directx output, which will require more work/fixing. This will require test scripts for tuning.
 
 ### Notes:
